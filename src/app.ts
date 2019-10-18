@@ -10,7 +10,7 @@ let amtOfTipText: HTMLDivElement;
 let totalPaid: HTMLDivElement;
 let customTipForm: HTMLDivElement;
 let customTipAmtInput: HTMLInputElement;
-let numPeopleInput: HTMLInputElement;
+let numPeopleInput: HTMLSelectElement;
 let amtPaidPerPersonText: HTMLDivElement;
 
 let tipString: string;
@@ -28,9 +28,9 @@ export function runApp() {
     totalPaid = document.querySelector('#total-paid') as HTMLDivElement;
     customTipForm = document.querySelector('#customTipForm') as HTMLDivElement;
     customTipAmtInput = document.querySelector('#customTipAmt') as HTMLInputElement;
-    numPeopleInput = document.querySelector('#numPeople') as HTMLInputElement;
+    numPeopleInput = document.querySelector('#numPeople') as HTMLSelectElement;
     amtPaidPerPersonText = document.querySelector('#amount-per-person') as HTMLDivElement;
-    numPeopleInput.value = '1';
+    numPeopleInput.selectedIndex = 0;
     billAmt = 0;
     customTipAmt = 0;
     tipString = '0';
@@ -39,7 +39,7 @@ export function runApp() {
 
     billAmtInput.addEventListener('keyup', handleTextChange);
     customTipAmtInput.addEventListener('keyup', handleCustomTipChange);
-    numPeopleInput.addEventListener('keyup', handleNumPeopleChange);
+    numPeopleInput.addEventListener('click', handleDropdownChange);
 
     const storedTipAmt = localStorage.getItem('selected-tip-amt');
     if (storedTipAmt) {
@@ -90,12 +90,11 @@ function handleCustomTipChange(e: any) {
     }
 }
 
-function handleNumPeopleChange(e: any) {
+function handleDropdownChange(e: any) {
     updateMessageText();
 }
 
 function handleClick(e: any) {
-    // clickedTipBtn.classList.toggle('disabled');
     clickedTipBtn = this as HTMLDivElement;
     selectButton();
     updateMessageText();
@@ -137,13 +136,13 @@ function updateMessageText() {
     const totalAmt = calculateTotal(billAmt, tipAmt);
     totalPaid.innerText = formatCurrency(totalAmt);
 
+    // numPeopleInput.innerText
     const numPeople = parseInt(numPeopleInput.value);
     const amtPerPerson = calculateAmountDuePerPerson(totalAmt, numPeople);
     amtPaidPerPersonText.innerText = formatCurrency(amtPerPerson);
 }
 
 function clearCalculatedValues() {
-    // billAmt = 0;
     tipMessage.innerText = '0';
     tipPercentText.innerText = '0';
     billAmtText.innerText = formatCurrency(0);
