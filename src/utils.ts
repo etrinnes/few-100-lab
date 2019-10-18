@@ -23,4 +23,8 @@ export function calculateTotal(billAmt: number, tipAmt: number) {
     return billAmt + tipAmt;
 }
 
+export function calculateAmountDuePerPerson(totalAmt: number, numPeople: number) {
+    return totalAmt / numPeople;
+}
+
 

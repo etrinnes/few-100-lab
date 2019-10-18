@@ -1,4 +1,4 @@
-import { calculateTotal, formatCurrency, calculateTip, isNumber } from './utils';
+import { calculateTotal, formatCurrency, calculateTip, isNumber, calculateAmountDuePerPerson } from './utils';
 
 let tipBtns: NodeListOf<HTMLDivElement>;
 let tipMessage: HTMLDivElement;
@@ -10,10 +10,13 @@ let amtOfTipText: HTMLDivElement;
 let totalPaid: HTMLDivElement;
 let customTipForm: HTMLDivElement;
 let customTipAmtInput: HTMLInputElement;
+let numPeopleInput: HTMLInputElement;
+let amtPaidPerPersonText: HTMLDivElement;
 
 let tipString: string;
 let billAmt: number;
 let customTipAmt: number;
+let numberOfPeople: number;
 
 export function runApp() {
     tipBtns = document.querySelectorAll('.tip-btn') as NodeListOf<HTMLDivElement>;
@@ -25,13 +28,18 @@ export function runApp() {
     totalPaid = document.querySelector('#total-paid') as HTMLDivElement;
     customTipForm = document.querySelector('#customTipForm') as HTMLDivElement;
     customTipAmtInput = document.querySelector('#customTipAmt') as HTMLInputElement;
+    numPeopleInput = document.querySelector('#numPeople') as HTMLInputElement;
+    amtPaidPerPersonText = document.querySelector('#amount-per-person') as HTMLDivElement;
+    numPeopleInput.value = '1';
     billAmt = 0;
     customTipAmt = 0;
     tipString = '0';
+    numberOfPeople = 1;
     customTipForm.hidden = true;
 
     billAmtInput.addEventListener('keyup', handleTextChange);
     customTipAmtInput.addEventListener('keyup', handleCustomTipChange);
+    numPeopleInput.addEventListener('keyup', handleNumPeopleChange);
 
     const storedTipAmt = localStorage.getItem('selected-tip-amt');
     if (storedTipAmt) {
@@ -82,6 +90,10 @@ function handleCustomTipChange(e: any) {
     }
 }
 
+function handleNumPeopleChange(e: any) {
+    updateMessageText();
+}
+
 function handleClick(e: any) {
     // clickedTipBtn.classList.toggle('disabled');
     clickedTipBtn = this as HTMLDivElement;
@@ -124,6 +136,10 @@ function updateMessageText() {
 
     const totalAmt = calculateTotal(billAmt, tipAmt);
     totalPaid.innerText = formatCurrency(totalAmt);
+
+    const numPeople = parseInt(numPeopleInput.value);
+    const amtPerPerson = calculateAmountDuePerPerson(totalAmt, numPeople);
+    amtPaidPerPersonText.innerText = formatCurrency(amtPerPerson);
 }
 
 function clearCalculatedValues() {
