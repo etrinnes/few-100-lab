@@ -4,16 +4,73 @@
 <head>
     <meta charset="UTF-8">
     <title>Front End Web 100</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
 </head>
 
 <body>
     <header>
-        <h1>Front End Web 100 Starter</h1>
-        <h2>Progressive ITU</h2>
+        <div class="container">
+            <h2>Tip Calculator</h2>
+        </div>
     </header>
     <main>
-        
+        <div class="container">
+            <div class="input-group input-group-sm mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"
+                          id="inputGroup-sizing-sm">$</span>
+                </div>
+                <input type="text"
+                       class="form-control"
+                       aria-label="Sizing example input"
+                       aria-describedby="inputGroup-sizing-sm"
+                       id="bill-amt-input">
+            </div>
+            <div class="btn-group"
+                 role="group"
+                 aria-label="Basic example">
+                <button type="button"
+                        class="btn btn-secondary tip-btn disabled"
+                        data-amt="10">10%</button>
+                <button type="button"
+                        class="btn btn-secondary tip-btn"
+                        data-amt="15">15%</button>
+                <button type="button"
+                        class="btn btn-secondary tip-btn"
+                        data-amt="20">20%</button>
+                <button type="button"
+                        class="btn btn-secondary tip-btn"
+                        data-amt="custom">Custom</button>
+            </div>
+            <form class="form-inline"
+                  id="customTipForm">
+                <div class="form-group">
+                    <label>Custom Tip: </label>
+                    <input id="customTipAmt"
+                           class="form-control mx-sm-3">
+                </div>
+            </form>
+            <p>You are tipping <span id="tip-message"></span>%</p>
+            <ul class="list-group">
+                <li class="list-group-item">Bill Amount: <span id="bill-amt-text"></span></li>
+                <li class="list-group-item">Tip Percentage <span id="tip-percent-text"></span>%</li>
+                <li class="list-group-item">Amount of tip: <span id="amt-of-tip-text"></span></li>
+                <li class="list-group-item">Total to be Paid: <span id="total-paid"></span></li>
+            </ul>
+        </div>
     </main>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
 </body>
 
 </html>
