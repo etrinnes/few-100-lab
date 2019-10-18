@@ -1,4 +1,4 @@
-import { calculateTotal, formatCurrency, calculateTip, isNumber, calculateAmountDuePerPerson } from './utils';
+import { calculateTotal, formatCurrency, calculateTip, isPositiveNumber, calculateAmountDuePerPerson } from './utils';
 
 let tipBtns: NodeListOf<HTMLDivElement>;
 let tipMessage: HTMLDivElement;
@@ -12,7 +12,6 @@ let customTipForm: HTMLDivElement;
 let customTipAmtInput: HTMLInputElement;
 let numPeopleInput: HTMLSelectElement;
 let amtPaidPerPersonText: HTMLDivElement;
-
 let tipString: string;
 let billAmt: number;
 let customTipAmt: number;
@@ -61,7 +60,7 @@ export function runApp() {
 
 function handleTextChange(e: any) {
     const billAmtInputVal = billAmtInput.value;
-    if (isNumber(billAmtInputVal)) {
+    if (isPositiveNumber(billAmtInputVal)) {
         if (billAmtInput.classList.contains('is-invalid')) {
             billAmtInput.classList.toggle('is-invalid');
         }
@@ -77,7 +76,7 @@ function handleTextChange(e: any) {
 
 function handleCustomTipChange(e: any) {
     tipString = customTipAmtInput.value;
-    if (isNumber(tipString)) {
+    if (isPositiveNumber(tipString)) {
         if (customTipAmtInput.classList.contains('is-invalid')) {
             customTipAmtInput.classList.toggle('is-invalid');
         }
@@ -136,7 +135,6 @@ function updateMessageText() {
     const totalAmt = calculateTotal(billAmt, tipAmt);
     totalPaid.innerText = formatCurrency(totalAmt);
 
-    // numPeopleInput.innerText
     const numPeople = parseInt(numPeopleInput.value);
     const amtPerPerson = calculateAmountDuePerPerson(totalAmt, numPeople);
     amtPaidPerPersonText.innerText = formatCurrency(amtPerPerson);
@@ -148,4 +146,5 @@ function clearCalculatedValues() {
     billAmtText.innerText = formatCurrency(0);
     amtOfTipText.innerText = formatCurrency(0);
     totalPaid.innerText = formatCurrency(0);
+    amtPaidPerPersonText.innerText = formatCurrency(0);
 }

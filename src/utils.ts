@@ -6,7 +6,7 @@ export function ready(cb: () => void) {
     };
 }
 
-export function isNumber(value: string | number): boolean {
+export function isPositiveNumber(value: string | number): boolean {
     const valuesAsNum = Number(value.toString());
     return ((value !== '') && (value != null) && !isNaN(valuesAsNum) && (valuesAsNum > 0));
 }
